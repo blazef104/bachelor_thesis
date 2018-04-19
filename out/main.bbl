@@ -1,0 +1,54 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{firstFuzzPaper}{article}{}
+      \name{author}{1}{}{%
+        {{hash=b0ea2c9a91cf454239581c5cb3977013}{%
+           family={Barton\bibnamedelimb P.\bibnamedelimi Miller},
+           familyi={B\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim M\bibinitperiod},
+           given={Bryan\bibnamedelima So},
+           giveni={B\bibinitperiod\bibinitdelim S\bibinitperiod},
+           suffix={Lars\bibnamedelima Fredriksen},
+           suffixi={L\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+      }
+      \strng{namehash}{b0ea2c9a91cf454239581c5cb3977013}
+      \strng{fullhash}{b0ea2c9a91cf454239581c5cb3977013}
+      \strng{bibnamehash}{b0ea2c9a91cf454239581c5cb3977013}
+      \strng{authorbibnamehash}{b0ea2c9a91cf454239581c5cb3977013}
+      \strng{authornamehash}{b0ea2c9a91cf454239581c5cb3977013}
+      \strng{authorfullhash}{b0ea2c9a91cf454239581c5cb3977013}
+      \field{sortinit}{1}
+      \field{sortinithash}{27a2bc5dfb9ed0a0422134d636544b5d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{An Empirical Study of the Reliability of UNIX Utilities}
+      \field{year}{1990}
+      \verb{urlraw}
+      \verb ftp://ftp.cs.wisc.edu/paradyn/technical_papers/fuzz.pdf
+      \endverb
+      \verb{url}
+      \verb ftp://ftp.cs.wisc.edu/paradyn/technical_papers/fuzz.pdf
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
