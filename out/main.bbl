@@ -19,34 +19,31 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
-    \entry{firstFuzzPaper}{article}{}
+    \entry{Sutton2007}{book}{}
       \name{author}{1}{}{%
-        {{hash=b0ea2c9a91cf454239581c5cb3977013}{%
-           family={Barton\bibnamedelimb P.\bibnamedelimi Miller},
-           familyi={B\bibinitperiod\bibinitdelim P\bibinitperiod\bibinitdelim M\bibinitperiod},
-           given={Bryan\bibnamedelima So},
-           giveni={B\bibinitperiod\bibinitdelim S\bibinitperiod},
-           suffix={Lars\bibnamedelima Fredriksen},
-           suffixi={L\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
+        {{hash=98b83022d13e0a2f2619141d8f91dba7}{%
+           family={Michael\bibnamedelima Sutton},
+           familyi={M\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={Pedram\bibnamedelima Amini},
+           giveni={P\bibinitperiod\bibinitdelim A\bibinitperiod},
+           suffix={Adam\bibnamedelima Greene},
+           suffixi={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
       }
-      \strng{namehash}{b0ea2c9a91cf454239581c5cb3977013}
-      \strng{fullhash}{b0ea2c9a91cf454239581c5cb3977013}
-      \strng{bibnamehash}{b0ea2c9a91cf454239581c5cb3977013}
-      \strng{authorbibnamehash}{b0ea2c9a91cf454239581c5cb3977013}
-      \strng{authornamehash}{b0ea2c9a91cf454239581c5cb3977013}
-      \strng{authorfullhash}{b0ea2c9a91cf454239581c5cb3977013}
+      \list{publisher}{1}{%
+        {Addison Wesley}%
+      }
+      \strng{namehash}{98b83022d13e0a2f2619141d8f91dba7}
+      \strng{fullhash}{98b83022d13e0a2f2619141d8f91dba7}
+      \strng{bibnamehash}{98b83022d13e0a2f2619141d8f91dba7}
+      \strng{authorbibnamehash}{98b83022d13e0a2f2619141d8f91dba7}
+      \strng{authornamehash}{98b83022d13e0a2f2619141d8f91dba7}
+      \strng{authorfullhash}{98b83022d13e0a2f2619141d8f91dba7}
       \field{sortinit}{1}
       \field{sortinithash}{27a2bc5dfb9ed0a0422134d636544b5d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{title}{An Empirical Study of the Reliability of UNIX Utilities}
-      \field{year}{1990}
-      \verb{urlraw}
-      \verb ftp://ftp.cs.wisc.edu/paradyn/technical_papers/fuzz.pdf
-      \endverb
-      \verb{url}
-      \verb ftp://ftp.cs.wisc.edu/paradyn/technical_papers/fuzz.pdf
-      \endverb
+      \field{title}{Fuzzing: Brute force vulnerability discovery}
+      \field{year}{2007}
     \endentry
   \enddatalist
 \endrefsection

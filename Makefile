@@ -8,7 +8,7 @@ PDF=$(SRC:.tex=.pdf)
 DEPEND=bibliography.bib
 #DIAGS=img/gpu_paralell_serial.svg img/4_virtualization_tech.svg
 TOOL=rubber --into $(BUILDIR) --pdf
-TODOS=$(shell grep -i todo main.tex *.bib | grep -c -v newcommand)
+TODOS=$(shell grep -i todo chapters/*.tex *.bib | grep -c -v newcommand)
 DATETAG=$(shell date '+%Y_%m_%d_%H%M%S')
 
 
@@ -21,7 +21,7 @@ $(PDF):  $(SRC) $(DEPEND) TODOS
 	@echo
 	# This is specific for my thesis
 	@echo "Output pdf created"
-	cp $(BUILDIR)/main.pdf ./Thesis.pdf
+	@cp $(BUILDIR)/main.pdf ./Thesis.pdf
 	###########################
 	@echo "The current PDF has $$(pdftk $(BUILDIR)/$(FILENAME).pdf dump_data output | grep NumberOfPages | cut -d ' ' -f 2) pages"
 

@@ -24,17 +24,28 @@
   \fancyhead[LO,RE]{\itshape \nouppercase Capitolo \arabic{chapter}}
   \fancyfoot[C]{\thepage}
 }
+
 \usepackage{afterpage}
+
+\usepackage{color}
+\usepackage{framed}
+\newcounter{t0d0_counter}
+\newcommand{\notodo}[1]{
+}
+\newcommand{\todo}[1]{
+  \stepcounter{t0d0_counter}
+  \definecolor{shadecolor}{rgb}{1,1,0} % this is yellow
+  \begin{shaded}
+  T0D0 \arabic{t0d0_counter}: #1
+  \end{shaded}
+}
 
 \newcommand\blankpage{%
     \null
     \thispagestyle{empty}%
     \addtocounter{page}{-1}%
     \newpage}
-%\fancyhead[LE,RO]{\itshape \nouppercase \rightmark}
-%\fancyhead[LO,RE]{\itshape \nouppercase Capitolo \arabic{chapter}}
 
-%\quotingsetup{font=small}
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
 
@@ -47,9 +58,6 @@
 %\usepackage[compact]{titlesec}
 \usepackage[sorting=none]{biblatex}
 \addbibresource{../bibliography.bib}
-
-%\addto{\captionsenglish}{\renewcommand*{\appendixname}{Appendici}}
-
 
 \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{plain}}}
 \AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{plain}}}

@@ -1,24 +1,17 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\chapter{Fuzzing}
-\section{Brief History}
+\chapter{Software testing and Fuzzing}
+\todo{maybe put some references about fuzzing hystory and actual world, just few lines.}
 
-The term Fuzz Testing was first introduced in 1988 when three students from University of Wisconsin-Madison
-proposed a tool to test the behavior of UNIX Utilities when given unexpected random characters as input. \cite{firstFuzzPaper}
-Those first tools where pretty simple and as it can be easily imagined they just generated random strings.
-However the findings where impressive: 25-30\% of the tested utilities crashed when tested with the new tools.
-For this reason fuzz testing begin to gain more and more popularity until the first years of 2000 when it grow at the point
-that it become a filed of research and engineering.
+\section{Software testing methods}
+\todo{explain software testing techniques (white, black, gray box)}
 
-This initial fuzzing technique is known as \texttt{Black Box Fuzzing}.
-%TODO: black box fuzzing
+\section{The fuzzing world}
+"Fuzzing is the process of sending intentionally invalid data to a  product in the hopes of triggering an error condition or fault."\cite{Sutton2007}
+\todo{explain how a fuzzer works and how the previous methods applies to the fuzzing world. Also explain fuzzing approaches.}
 
-Getting closer to the present day more and more techniques for fuzz testing emerged, I will illustrate some of those in the following
-sections:
+\section{State of the art}
+\todo{describe afl, afl-unicorn and peach.}
 
-\section{White Box Fuzzing}
-This is a more sophisticated fuzzing technique, compared to the \texttt{Black Box Fuzzing} 
-
-% TODO
 \end{document}
