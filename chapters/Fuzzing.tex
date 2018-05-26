@@ -1,17 +1,166 @@
 \documentclass[../main.tex]{subfiles}
 \begin{document}
 
-\chapter{Software testing and Fuzzing}
-\todo{maybe put some references about fuzzing hystory and actual world, just few lines.}
+\chapter{Software Testing and Fuzzing}
+\label{chap:fuzzing}
 
 \section{Software testing methods}
-\todo{explain software testing techniques (white, black, gray box)}
+\todo{Short introduction on the various testing methodologies beside fuzzing}
+
+\subsection{Black Box}
+
+For this metodology no access to the source code or knowledge of the design
+specifications and internal mechanisms of the program is required. The test is
+based only on what can be observed which means giving to the target different
+inputs and monitoring his behaviour. If we reflect on this definition for a
+moment it is one of the many ways to describe fuzzing. Although the definition
+of Black Box Testing fits quite well the one of fuzzing they are not the same
+thing in fact black box testing is widely used and includes all the testing
+techniques where the only available information comes from the user interaction
+with the application. One example among all is sql injection where the test is
+conducted against a plain web page without any previous knowledge about logic of
+the servers and the various scripts. Only interacting with them allows the user
+to get an idea of the inner working mechanisms, the interaction can be diect
+with the user via a manual testing or using automated testing tools for example
+SQLmap\footnote{http://sqlmap.org/}. Black Box testing has many advantages: it
+does not require access to the source code so it is always applicable and even
+in the presence of source code it can still be effective. Since it is not source
+code dependant an effective test case against one program (for example a zip
+extractor) can be easyly reused to test any program that implements the same
+functionality. However due to his semplicity this method can only scratch the
+sourface of the application being tested, acheiving a extremely low code
+coverage. Moreover complex vulnerabilities which requires multiple attack vetros
+will never be triggered and can only be discovered with a White Box approach.
+
+\subsection{White Box}
+
+This metodology is nothing more than a source code review or analysis, it can be
+done either by a human or by automated tools. Human analysis in not always
+feasable and might be inaccurate since, especially in large projects, it is easy
+to miss one line or make simple mistakes. For this reasons automated source code
+analysis is the way to go in a white box approach. This method has many
+advantages mainly regarding code coverage since it is possible to test all the
+paths for vulnerabilities. However, source code rarely is available for projects
+outside the open source community and this approach still requires a human
+interaction to review the results and identify the parts that are actually
+related to security problems. Moreover the review might require significant time
+to complete, effectively bringing the performance down to the level of the
+BlackBox approach.
+
+\subsection{Gray Box}
+
+The definition of this technique is quite trivial because a lot of different
+methods can be seen as Gray Box approach. This takes the Black Box method as a
+starting point augmenting it with the use of common reverse engeneering and
+binary analysis techniques using disassemblers, debuggers and similar tools. The
+majority of those tools still requires human interaction and reverse engeneering
+a program can often be a tedious and hard job. However there are some automated
+tools that aims to facilitate this analysis, for example one of them is
+Ropper\footnote{https://github.com/sashs/Ropper}. For this reasons the Gray Box
+technique is able to efficently improve the coverage produced by the classic
+Black Box approach still requiring access only to the compiled application.
+However reverse engeneering is a complex task and requires specific set of
+skills and tools which might not always be available.
 
 \section{The fuzzing world}
-"Fuzzing is the process of sending intentionally invalid data to a  product in the hopes of triggering an error condition or fault."\cite{Sutton2007}
-\todo{explain how a fuzzer works and how the previous methods applies to the fuzzing world. Also explain fuzzing approaches.}
+
+% Regarding the whitebox fuzzing
+
+% This is a more sophisticate technique that require access to the source code. It
+% is really powerful because it combines automated source code analysis and
+% fuzzing, the objective is to create a set of test cases that will produce the
+% maximum possible code coverage. In this way it tries to overcome one of the
+% problem of the BlackBox approach performing an extensive test of all the
+% possible paths \cite{whitebox-fuzz-testing}.
+\texttt{"Fuzzing is the process of sending intentionally invalid data to a
+product in the hopes of triggering an error condition or fault."}
+\cite{Sutton2007}
+
+Fuzz Testing dates back to 1989 when it started as a project of the operating
+systems course at the University of Wisconsin-Madison. At his first stages it
+was nothing more than a simple black box technique to test the robustness of
+some UNIX utilities. The first two fuzzers \textit{fuzz} and \textit{ptyjig},
+developed by two students, where incredibly successful in finding previously
+unknown vulnerabilities: they where able to crash around 30\% of the considered
+utilities using the random inputs generated by the fuzzers\cite{firstFuzzPaper}.
+It quickly become clear that this was a powerful and strong technique to test
+the robustness of a piece of software.
+
+During the years fuzz testing evolved and developed gaining popularity and
+expanding to more and more fields (networks, files, wireless and more) until it
+became a proper field of research and engineering. As for today this fieeld is
+quite vast and, using this kind of tools in the software testing phase, is
+starting to be a best practice. However it is still uncommon to find fuzzing
+outside the security world, for this reason is hard to give a precise and unique
+definition for this technique. I will now try to give an overview of the modern
+fuzzing world with particular reference to the local fuzzers. %local? file format? command line?
+
+First of all they can be divided in two main categories:
+
+\begin{itemize}
+  \item{\textbf{Mutation Based (or Dumb)}: apply random mutations to the given
+  input without any knowledge of the data that are being manipulated. Common
+  mutations include bitflipping, shortening or expanding and similar. This
+  method is really simple and is a pure brute force approach, it can be applied
+  to user provided inputs as well as to automatically generated ones to
+  progressively generate a valid input.}
+
+  \item{\textbf{Generation Based (or Smart)}: requires some knowledge of the
+  data or protocol that is being fuzzed, this information are then used to
+  generate proper inputs. For example generating valid CRC codes for mutated
+  strings or keeping the correct structure for particular files (jpg). Obviously this approach has some advantages but in some cases a mutation based apprach can give better results as it can test programs even outside their functioning boundaries.} %review this
+
+\end{itemize}
+
+As always the best sits in the middle so a fuzzer that combines the two methods is the one that can give the most comprehensive results.
+
+We can then relate fuzzers to the previously mentioned testing methods, in this way fuzzers can be further differentiated by the approach that they have to
+the problem and the information they require to test the binary. This divides
+the fuzzing world in three theoretical categories: \textbf{BlackBox Fuzzing,
+WhiteBox Fuzzing} and \textbf{GrayBox Fuzzing}. However fuzzing is not an exact
+science, in the real world choosing the right approach can be trivial
+and usually there is not a clear distinction between the different categories.
+
+\todo{Fuzzing approaches.}
 
 \section{State of the art}
+There are many software available to do a moltitude of fuzzing jobs. The choice is vast and goes from the simple hobby project to the more complex and advanced commercial software however, \todo{choosing a good fuzzer is a crucial step for the success of the task.} The following two softwares represents the state of the art in term of binary fuzzers.
+
 \todo{describe afl, afl-unicorn and peach.}
+
+\subsection{American Fuzzy Lop}
+
+We ended up choosing \texttt{American Fuzzy Lop} or \texttt{AFL}
+\footnote{http://lcamtuf.coredump.cx/afl/} as it represents the state of the art
+in this category, it has a high rate of vulnerabilities discovery as stated int
+the "bug-o-rama trophy case" section of the website, it is widely used and in
+active development.
+
+AFL has many different features that makes it a quite sophisticated software. It
+is a gray box fuzzer which require access to the source code in order to perform
+what it calls "instrumentation". This process consist in adding some custom code
+to the program that is being compiled; this automatic operation, performed by
+the custom compilers \texttt{afl-gcc} and \texttt{afl-clang-fast}, adds small
+code snippets in critical positions without weighting down the program but
+allowing the fuzzer to obtain information on the execution flow at run time.
+However, even without access to the source code, it can leverage the QEMU
+emulator to obtain information about the execution state of the binary though
+this slows down the fuzzing speed.
+
+The information gathered by the fuzzer will then be used to mutate the input:
+the tool uses a genetic algorithm approach keeping a queue of interesting inputs
+that will then be mutated and appending a file to the queue if it triggers a
+previously unknown internal state. This has been empirically proven to be a
+successful approach in sintetizing complex files or sentences form scarce or
+null information\cite{aflblog}.
+
+One of the best characteristic of afl is that is open source meaning that every
+person can improve the code and modify it to meet different needs. For example
+one really active researcher in the fuzzing field, Dr. Marcel
+B\"ohme\cite{mbhome}, created some really interesting variations of afl trying
+to achieve better code coverage\cite{aflfast}\cite{greybf}, and better path
+discovery\cite{pythia}.
+
+\subsection{Peach}
 
 \end{document}

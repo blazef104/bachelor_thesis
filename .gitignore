@@ -1,4 +1,8 @@
+/docs/*
+/out/*
+*.bak
+*.sav
 *.aux
-*idx
-*log
+*.idx
+*.log
 *.toc
