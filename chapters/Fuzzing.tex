@@ -9,34 +9,34 @@
 
 \subsection{Black Box}
 
-For this metodology no access to the source code or knowledge of the design
+For this methodology no access to the source code or knowledge of the design
 specifications and internal mechanisms of the program is required. The test is
 based only on what can be observed which means giving to the target different
-inputs and monitoring his behaviour. If we reflect on this definition for a
+inputs and monitoring his behavior. If we reflect on this definition for a
 moment it is one of the many ways to describe fuzzing. Although the definition
 of Black Box Testing fits quite well the one of fuzzing they are not the same
 thing in fact black box testing is widely used and includes all the testing
 techniques where the only available information comes from the user interaction
-with the application. One example among all is sql injection where the test is
+with the application. One example among all is SQL injection where the test is
 conducted against a plain web page without any previous knowledge about logic of
 the servers and the various scripts. Only interacting with them allows the user
-to get an idea of the inner working mechanisms, the interaction can be diect
+to get an idea of the inner working mechanisms, the interaction can be direct
 with the user via a manual testing or using automated testing tools for example
 SQLmap\footnote{http://sqlmap.org/}. Black Box testing has many advantages: it
 does not require access to the source code so it is always applicable and even
 in the presence of source code it can still be effective. Since it is not source
-code dependant an effective test case against one program (for example a zip
-extractor) can be easyly reused to test any program that implements the same
-functionality. However due to his semplicity this method can only scratch the
-sourface of the application being tested, acheiving a extremely low code
-coverage. Moreover complex vulnerabilities which requires multiple attack vetros
+code dependent an effective test case against one program (for example a zip
+extractor) can be easily reused to test any program that implements the same
+functionality. However due to his simplicity this method can only scratch the
+surface of the application being tested, achieving a extremely low code
+coverage. Moreover complex vulnerabilities which requires multiple attack vector
 will never be triggered and can only be discovered with a White Box approach.
 
 \subsection{White Box}
 
-This metodology is nothing more than a source code review or analysis, it can be
+This methodology is nothing more than a source code review or analysis, it can be
 done either by a human or by automated tools. Human analysis in not always
-feasable and might be inaccurate since, especially in large projects, it is easy
+feasible and might be inaccurate since, especially in large projects, it is easy
 to miss one line or make simple mistakes. For this reasons automated source code
 analysis is the way to go in a white box approach. This method has many
 advantages mainly regarding code coverage since it is possible to test all the
@@ -51,15 +51,15 @@ BlackBox approach.
 
 The definition of this technique is quite trivial because a lot of different
 methods can be seen as Gray Box approach. This takes the Black Box method as a
-starting point augmenting it with the use of common reverse engeneering and
+starting point augmenting it with the use of common reverse engineering and
 binary analysis techniques using disassemblers, debuggers and similar tools. The
-majority of those tools still requires human interaction and reverse engeneering
+majority of those tools still requires human interaction and reverse engineering
 a program can often be a tedious and hard job. However there are some automated
 tools that aims to facilitate this analysis, for example one of them is
 Ropper\footnote{https://github.com/sashs/Ropper}. For this reasons the Gray Box
-technique is able to efficently improve the coverage produced by the classic
+technique is able to efficiently improve the coverage produced by the classic
 Black Box approach still requiring access only to the compiled application.
-However reverse engeneering is a complex task and requires specific set of
+However reverse engineering is a complex task and requires specific set of
 skills and tools which might not always be available.
 
 \section{The fuzzing world}
@@ -88,7 +88,7 @@ the robustness of a piece of software.
 
 During the years fuzz testing evolved and developed gaining popularity and
 expanding to more and more fields (networks, files, wireless and more) until it
-became a proper field of research and engineering. As for today this fieeld is
+became a proper field of research and engineering. As for today this field is
 quite vast and, using this kind of tools in the software testing phase, is
 starting to be a best practice. However it is still uncommon to find fuzzing
 outside the security world, for this reason is hard to give a precise and unique
@@ -108,7 +108,7 @@ First of all they can be divided in two main categories:
   \item{\textbf{Generation Based (or Smart)}: requires some knowledge of the
   data or protocol that is being fuzzed, this information are then used to
   generate proper inputs. For example generating valid CRC codes for mutated
-  strings or keeping the correct structure for particular files (jpg). Obviously this approach has some advantages but in some cases a mutation based apprach can give better results as it can test programs even outside their functioning boundaries.} %review this
+  strings or keeping the correct structure for particular files (jpg). Obviously this approach has some advantages but in some cases a mutation based approach can give better results as it can test programs even outside their functioning boundaries.} %review this
 
 \end{itemize}
 
@@ -124,7 +124,7 @@ and usually there is not a clear distinction between the different categories.
 \todo{Fuzzing approaches.}
 
 \section{State of the art}
-There are many software available to do a moltitude of fuzzing jobs. The choice is vast and goes from the simple hobby project to the more complex and advanced commercial software however, \todo{choosing a good fuzzer is a crucial step for the success of the task.} The following two softwares represents the state of the art in term of binary fuzzers.
+There are many software available to do a multitude of fuzzing jobs. The choice is vast and goes from the simple hobby project to the more complex and advanced commercial software however, \todo{choosing a good fuzzer is a crucial step for the success of the task.} The following two software represents the state of the art in term of binary fuzzers.
 
 \todo{describe afl, afl-unicorn and peach.}
 
@@ -161,6 +161,54 @@ B\"ohme\cite{mbhome}, created some really interesting variations of afl trying
 to achieve better code coverage\cite{aflfast}\cite{greybf}, and better path
 discovery\cite{pythia}.
 
+\subsubsection{afl-unicorn}
+\label{sub:afl-unicorn}
+\todo{review}
+
+\texttt{afl-unicorn} is a fork of afl that was build to leverage the power of
+afl and fuzz trivial binaries \textit{"For example, maybe you want to fuzz a
+embedded system that receives input via RF and isn’t easily debugged. Maybe the
+code you’re interested in is buried deep within a complex, slow program that you
+can’t easily fuzz through any traditional tools."}\cite{aflunicorn}. In
+particular it uses the unicorn engine\cite{unicorn}, which is a CPU emulator, to
+run the extracted context of a previously running instance of the same program
+making it architecture independent and easy to selectively fuzz. It might sound
+hard to understand but it is not: the unicorn engine allows us to fuzz a program
+in the exact same way as before but, in addition to this, we now have control
+over the memory, the CPU registers, and the code of the program. This is useful
+in many different situations for example when you do not have access to the
+source code or when you have the sources but you want to fuzz a precompiled
+binary, which is our case. Moreover \texttt{afl-unicorn} allow the user to
+specify portions of code to be fuzzed, for example a single function, and the
+fuzzing takes place directly inside the emulated memory manipulating the user
+defined region. It is also possible to write custom "hooks" when certain
+functions are called or particular addresses are reached so to skip particular
+functions or to trigger a defined behavior, such as a crash, if the program
+reaches a particular portion of the code.
+
+While it is true that this approach is very powerful the template for the
+unicorn engine must be hand written and the process in quite time consuming (we
+wrote a tool to automatically generate it, more details in Section
+\ref{sub:tools}). Moreover, we had some troubles getting the unicorn engine to
+work on the multicore server: while on two different laptops it has the exact
+same behavior when we try to run the engine on the server it has a completely
+different behavior.
+
 \subsection{Peach}
+\todo{more detailed description}
+
+Another very popular fuzzer and "competitor" of afl is \texttt{Peach}, this is a
+bit different from afl since is capable of fuzzing different targets such as
+\textbf{network protocols, device drivers, file consumers, embedded devices,
+external devices} natively. Another difference is that while afl requires just
+an input file to start the fuzzing \texttt{Peach} in addition to this it
+requires a \textit{"Peach Pit"} which is a file describing the protocol or the
+data format that you want to fuzz\cite{peach}. Moreover as it is stated on the
+website: "Peach is not open source software, it’s FREE software. Peach is
+licensed under the MIT License which places no limitations on it’s use. This
+software license was selected to guarantee that companies and individuals do not
+have to worry about license tainting issues."\cite{peachlicense}. For this
+reasons and since we believed that afl represented more the state of the art we
+did not choose \texttt{Peach}.
 
 \end{document}

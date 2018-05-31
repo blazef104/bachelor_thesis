@@ -4,13 +4,107 @@
 \chapter{Experimental Setup}
 \label{chap:experimsetup}
 \section{Hardware Setup}
-\todo{Describe the hardware used, why we used that hardware and why it can be usefull to test also on such a hardware. Getting dedicated hw is difficult and expensive. This part is explained really well in the paper. copia and migliora. }
+\todo{Describe the hardware used, why we used that hardware and why it can be useful to test also on such a hardware. Getting dedicated hw is difficult and expensive. This part is explained really well in the paper. }
 
 \section{Software Setup}
 \todo{Explain why we used what we used. Same as before, copy from paper and final report.}
 
+\section{Tools}
+\label{sec:tools}
+
+During the project I wrote a set of tools and scripts that played a major role
+in automating and simplifying some of the data processing and fuzzing tasks.
+Such tools are divided in two categories: \textbf{Data Tools} used to manage,
+modify and create the datasets. \textbf{Fuzzing Tools} used to facilitate and
+speed up the fuzzing process. The details and descriptions of the tools are as
+follows.
+\bigskip
+
+\textbf{Data Tools:}
+
+\begin{itemize}
+
+  \item \textbf{converter.sh} and \textbf{runner.sh} this scripts are meant to
+  interact with the data provided by the DO-358 zip file.This archive contains
+  different files which are designed to be used with a dedicated test tool for
+  real  avionics hardware, for  this reason there are 18 subfolders (called
+  groups)  and for each one of them  there are 3 files: \texttt{TestGroupXX
+  Procedures.doc}, \texttt{TestGroupXX  Stimulus.csv} and a \texttt{bin} folder
+  containing the actual data files.  Each one of this folders contain many
+  different files,  each representing a unique type of  information which has
+  already been  demodulated and is stored in a binary  format. Since the program
+  that we want  to test only accepts data in a  uplink(or downlink) format we
+  wrote  \textbf{converter.sh} to convert one  single file or an entire
+  directory in  the appropriate format. Every file  contains just one encoded
+  type of data and  with many files feeding them into a  program will be long
+  and tedious. The  \textbf{runner.sh} script will feed each  file contained
+  inside a specified  directory through the specified program  either
+  interactively, namely stopping  after each file and asking if the user  wants
+  to continue, or simply running  all files at one.
+
+  % \begin{figure}[htp]
+  %   \centering
+  %   \includegraphics[scale=0.6]{images/converterrunner.png}
+  %   \caption{converter.sh and runner.sh}
+  %   \label{fig:datatools1}
+  % \end{figure}
+
+  \item \textbf{message\_generator.py} is a simple script that given the first
+  part of a demodulated Mode-S message will calculate a correct CRC, it can do
+  this virtually for every random string with a correct length. This is only for
+  test purpose since we wanted to see what would happen when the test program is
+  fed with messages composed by all 1 or all 0 having a valid CRC.
+
+\end{itemize}
+
+\textbf{Fuzzing Tools:}
+
+\begin{itemize}
+
+  \item \textbf{start.sh}: afl can be parallelized on many cores, to do that a
+  different command with slightly different parameters must be issued for every
+  instance that you want to spawn. For this reason I wrote \textbf{start.sh}
+  which takes as input the number of cores that the  user wants to use and the
+  other parameters required by the fuzzer. The script  will then generate the
+  required directories and then start the chosen number  of fuzzers: 1 Master
+  and $n-1$ Slave.
+
+  \item \textbf{unicorn\_template\_generator.py}: \texttt{afl-unicorn} requires
+  quite  some time to set up all the environment and gather all the information
+  needed  to properly write the template for the Unicorn engine. For this reason
+  we  wrote this script which will create the template for the Unicorn engine
+  and  populate it with proper addresses. The script is designed to be sourced
+  into  GDB while the debugger is on a breakpoint inside a function, it will not
+  work  if called inside the main since what we want to test is usually a
+  particular  function.
+
+  \item \textbf{extract\_from\_memory.py} will dump the specified memory region from a running program in gdb so it can be used as input to \texttt{afl-unicorn}.  More information on how
+  \texttt{afl-unicorn} works and why this scripts are needed can be found in \ref{sub:afl-unicorn}. %\textbf{\nameref{sub:afl-unicorn}}.
+
+  \item \textbf{afl utility scripts}:
+
+  \begin{itemize}
+
+    \item \textbf{killem\_afl.sh} $\rightarrow$ stop a running instance of afl.
+
+    \item \textbf{wazzup\_afl.sh} $\rightarrow$  get information and statistics on the running instances of the specified fuzzer.
+
+    \item \textbf{afl\_noroot.sh} $\rightarrow$ run afl on a system where the user does not have root privileges.
+
+  \end{itemize}
+
+\end{itemize}
+
+% \begin{figure}[htp]
+%   \centering
+%   \hspace*{-0.55in}
+%   \includegraphics[scale=0.55]{images/fuzzscript.png}
+%   \caption{start.sh and related scripts}
+%   \label{fig:fuzztools}
+% \end{figure}
+
 \section{Proceedings}
 
-\todo{maybe we don't need this}
+\todo{which test we run, why and the result}
 
 \end{document}
