@@ -1,5 +1,6 @@
 # -*- mode: Makefile -*-
 SRC=main.tex
+OPT=--module glossaries:acronyms,nomain
 FILENAME=$(SRC:.tex=)
 FMT=pdf
 BUILDIR=out
@@ -7,7 +8,7 @@ BUILDIR=out
 PDF=$(SRC:.tex=.pdf)
 DEPEND=bibliography.bib
 #DIAGS=img/gpu_paralell_serial.svg img/4_virtualization_tech.svg
-TOOL=rubber --into $(BUILDIR) --pdf
+TOOL=rubber --into $(BUILDIR) --pdf $(OPT)
 TODOS=$(shell grep -i todo chapters/*.tex *.bib | grep -c -v newcommand)
 DATETAG=$(shell date '+%Y_%m_%d_%H%M%S')
 
@@ -24,17 +25,6 @@ $(PDF):  $(SRC) $(DEPEND) TODOS
 	@cp $(BUILDIR)/main.pdf ./Thesis.pdf
 	###########################
 	@echo "The current PDF has $$(pdftk $(BUILDIR)/$(FILENAME).pdf dump_data output | grep NumberOfPages | cut -d ' ' -f 2) pages"
-
-camera: $(SRC) $(DEPEND) TODOS
-	@rubber -p $(SRC)
-#	http://www.unix.com/shell-programming-and-scripting/55661-how-get-number-pages-pdf-file.html
-	@echo
-	@pdftk $(BUILDIR)/$(FILENAME).pdf dump_data output | grep NumberOfPages | cut -d ' ' -f 2
-# pdfinfo $(FILENAME).pdf | grep "Pages:" | cut -d ':' -f 2 | sed 's/ //g'
-
-checkcamera:
-	pdfinfo $(BUILDIR)/$(FILENAME).pdf
-	pdffonts $(BUILDIR)/$(FILENAME).pdf
 
 TODOS:
 	@if [ $(TODOS) -eq "0" ]; then echo "++++ All TODOs fixed! ++++"; fi

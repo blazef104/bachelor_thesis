@@ -124,7 +124,9 @@ and usually there is not a clear distinction between the different categories.
 \todo{Fuzzing approaches.}
 
 \section{State of the art}
-There are many software available to do a multitude of fuzzing jobs. The choice is vast and goes from the simple hobby project to the more complex and advanced commercial software however, \todo{choosing a good fuzzer is a crucial step for the success of the task.} The following two software represents the state of the art in term of binary fuzzers.
+There are many software available to do a multitude of fuzzing jobs. The choice is vast and goes from the simple hobby project to the much more complex and advanced commercial software. Choosing a good fuzzer is a crucial step for the success of the task, a fuzzer which is too basic and relays solely on a pure brute force approach (like \textit{ptyjig}) can require ages to find a simple bug on a modern program where, for a "smarter" fuzzer, it will take just few minutes or hours.
+
+The following two software represents the actual state of the art in term of binary fuzzers.
 
 \todo{describe afl, afl-unicorn and peach.}
 
@@ -173,8 +175,8 @@ can’t easily fuzz through any traditional tools."}\cite{aflunicorn}. In
 particular it uses the unicorn engine\cite{unicorn}, which is a CPU emulator, to
 run the extracted context of a previously running instance of the same program
 making it architecture independent and easy to selectively fuzz. It might sound
-hard to understand but it is not: the unicorn engine allows us to fuzz a program
-in the exact same way as before but, in addition to this, we now have control
+hard to understand but it is not: the unicorn engine allows to fuzz a program
+in the exact same way as before but, in addition to this, one have now control
 over the memory, the CPU registers, and the code of the program. This is useful
 in many different situations for example when you do not have access to the
 source code or when you have the sources but you want to fuzz a precompiled
@@ -186,13 +188,13 @@ functions are called or particular addresses are reached so to skip particular
 functions or to trigger a defined behavior, such as a crash, if the program
 reaches a particular portion of the code.
 
-While it is true that this approach is very powerful the template for the
+\todo{While it is true that this approach is very powerful the template for the
 unicorn engine must be hand written and the process in quite time consuming (we
 wrote a tool to automatically generate it, more details in Section
 \ref{sub:tools}). Moreover, we had some troubles getting the unicorn engine to
 work on the multicore server: while on two different laptops it has the exact
 same behavior when we try to run the engine on the server it has a completely
-different behavior.
+different behavior.}
 
 \subsection{Peach}
 \todo{more detailed description}

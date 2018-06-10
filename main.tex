@@ -1,18 +1,30 @@
 \documentclass[12pt,fleqn,twoside,a4paper]{book}
-
-
 \usepackage[utf8]{inputenc} %% lettere accentate
 \usepackage[english]{babel}
 \usepackage[toc,page]{appendix}
 \usepackage[T1]{fontenc}
 \usepackage[procnames]{listings}
+\usepackage[acronym,nomain, nonumberlist]{glossaries}
 \usepackage{quoting}
 \usepackage{csquotes}
 \usepackage{fancyhdr}
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage{subfiles}
 \usepackage{graphicx}
 \usepackage[bookmarks=false, linktoc=none, hidelinks]{hyperref}
+\usepackage{afterpage}
+\usepackage{color}
+\usepackage{framed}
+\usepackage[top=2.5cm,margin=3cm,bottom=2.5cm]{geometry}
+\usepackage{palatino}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+%\usepackage[compact]{titlesec}
+\usepackage[sorting=none]{biblatex}
+\usepackage{wrapfig}
 
 \fancypagestyle{frontmatter}{%
   \fancyhf{}% Clear header/footer
@@ -24,11 +36,6 @@
   \fancyhead[LO,RE]{\itshape \nouppercase Chapter \arabic{chapter}}
   \fancyfoot[C]{\thepage}
 }
-
-\usepackage{afterpage}
-
-\usepackage{color}
-\usepackage{framed}
 
 \newcounter{t0d0_counter}
 \newcommand{\notodo}[1]{
@@ -56,27 +63,22 @@
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
 
-\usepackage[top=2.5cm,margin=3cm,bottom=2.5cm]{geometry}
-\usepackage{palatino}
-\usepackage{enumitem}
-\usepackage{float}
-\usepackage{tikz}
-\usepackage{fancyvrb}
-%\usepackage[compact]{titlesec}
-\usepackage[sorting=none]{biblatex}
+
 \addbibresource{../bibliography.bib}
 
-\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{plain}}}
-\AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{plain}}}
-\AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{plain}}}
+% \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{plain}}}
+% \AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{plain}}}
+% \AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{plain}}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{TESI}
 \author{Giulio Ginesi}
-\date{June 2018}
+\date{July 2018}
 \frontmatter
 \makeindex
+\makeglossaries
+\loadglsentries{sections/acronyms.tex}
 
 \begin{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
