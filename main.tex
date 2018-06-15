@@ -59,7 +59,7 @@
     \thispagestyle{empty}%
     \addtocounter{page}{-1}%
     \newpage}
-
+\input{sections/data.tex}
 \DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
 \DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
 
@@ -69,6 +69,8 @@
 % \AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{plain}}}
 % \AtBeginDocument{\addtocontents{lof}{\protect\thispagestyle{plain}}}
 % \AtBeginDocument{\addtocontents{lot}{\protect\thispagestyle{plain}}}
+
+% using main text styles (\textit, textbf ecc) in the body is bad, use them to define some macros and easily change the behavior on the go
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

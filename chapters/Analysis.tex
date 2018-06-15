@@ -1,15 +1,53 @@
+%!TeX spellcheck = en-US
 \documentclass[../main.tex]{subfiles}
 \begin{document}
-
-\chapter{Experimental Setup}
+\chapter{Analysis}
 \label{chap:experimsetup}
+
+Accessing real avionics hardware and software was out of reach for this research, therefore the analysis was carried out on open source implementations of \textbf{ADS-B}, \textbf{FIS-B} and \textbf{NexRad} as found in many popular source-tree, binary-package and device-firmware releases such as Stratux, FlightRadar24 and FlightAware. Testing on those software has also secondary relevant implications as it allows to test at the same time avionics protocols as well as IoT devices. As a matter of fact, even though avionics software must comply with strict regulations and security standards as described in DO-178 (ED-12 in europe) and DO-278, it is highly likely that using one of the previously mentioned protocols as attack vector will have the same effect on both implementations.
+
+Fuzzing was choosen as test method since, as far as it was known at the beginning of the research, no previous attempt of applying this test method to avionics protocols had been carried out. This research acquire even more importance if we examine the latest news about the hacking of a Boeing 757 and the Cyber Grand Challenge (CGC) 2016~\cite{CGC}. In particular, the CGC contained a specific challenge (\texttt{FSK\_Messaging\_Service})~\cite{CGC-FSK} tailored to identify techniques and systems able to discover vulnerabilities in the RF software using processed data after the RF front-ends. Aircraft and avionics radio-communication interfaces are a perfect example of that type of design.
+\textit{afl-unicron} has been demonstrated to be particularly effective on solving this specific challenge of the CGC.
+
+There is no official linking between the CGC and the Boeing hack however, the circumstances indicate that there is a search and a need for knowledge and tools that can exploit (and therefore eventually protect) RF facing software, embedded devices in general and avionics and NextGen devices in particular.
+
+\todo{motivations}
+
 \section{Hardware Setup}
-\todo{Describe the hardware used, why we used that hardware and why it can be useful to test also on such a hardware. Getting dedicated hw is difficult and expensive. This part is explained really well in the paper. }
+
+The hardware used during the research was the following:
+\begin{itemize}
+
+\item \textit{DVB-T (RTL-SDR) dongle:} a simple and cheap tv receiver equipped with the \emph{RTL2832U} or compatible chip it can be tuned on a very wide range of frequencies, not only on the tv ones.
+
+\item \textit{RaspberryPi (RPi) 3 Model B:} used to acquire the data using RTL-SDR dongles, and also to run some tests on the precompiled binaries. The RPi was running the latest version of Raspbian, or the particular flavor/version of Linux or Raspbian bundled as part of Stratux and FlightRadar24 SD-card firmware image files.
+
+\item \textit{Standard laptop:} used for dry-run testing, for initial code testing and for initial fuzzing experiments monitoring. The laptop has the following specifications: Intel Core i7 5500 (4 cores), 12 GB of RAM. Since the fuzzing is time and resource consuming, when the running experiments were considered promising or really important, they were moved to run on a multi-core server.
+
+\item \textit{Multi-core server:} with following specifications: Intel Xeon CPU E7-8837 @ 2.67GHz (64 cores, 32 cores used for a single given afl-fuzz instance), 1 TB of RAM, running Centos7.4 Linux.
+\end{itemize}
+
+\todo{why}
 
 \section{Software Setup}
-\todo{Explain why we used what we used. Same as before, copy from paper and final report.}
 
-\section{Tools}
+\todo{Explain why we used what we used.}
+
+The focus was posed on two of the most widespread and common implementations: \emph{dump1090} and \emph{dump978} obviously the first one decode \textbf{OldGen} and \textbf{1090ES} messages while the second one decode \textbf{UAT} messages. Both of them uses \emph{librtlsdr} to communicate with the rtl-sdr dongle
+
+Tested software have two main components:
+\begin{enumerate}
+  \item A \emph{demodulator} that converts the raw signal coming from the dongle into a properly encoded string. This basically means converting waves into bits.
+  \item A \emph{decoder} that decodes the messages coming from the demodulator. Basically extracting the information from the incoming packet.
+\end{enumerate}
+
+\emph{dump1090} is a big monolithic software which has undergone major reworks and edits from many different authors. For this reason it is not possible to test individually each components.
+
+\subsection{Datasets}
+
+In order to test the above mentioned programs some data were needed.
+
+\subsection{Tools}
 \label{sec:tools}
 
 During the project I wrote a set of tools and scripts that played a major role
