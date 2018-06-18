@@ -4,21 +4,22 @@
 \chapter{Analysis}
 \label{chap:experimsetup}
 
-Accessing real avionics hardware and software was out of reach for this research, therefore the analysis was carried out on open source implementations of \textbf{ADS-B}, \textbf{FIS-B} and \textbf{NexRad} as found in many popular source-tree, binary-package and device-firmware releases such as Stratux, FlightRadar24 and FlightAware. Testing on those software has also secondary relevant implications as it allows to test at the same time avionics protocols as well as IoT devices. As a matter of fact, even though avionics software must comply with strict regulations and security standards as described in DO-178 (ED-12 in europe) and DO-278, it is highly likely that using one of the previously mentioned protocols as attack vector will have the same effect on both implementations.
+Accessing real avionics hardware and software was out of reach for this research, therefore the analysis was carried out on open source implementations of \textbf{ADS-B}, \textbf{FIS-B} and \textbf{NexRad} as found in many popular source-tree, binary-package and device-firmware releases such as Stratux, FlightRadar24 and FlightAware. Experimenting on those software has also secondary relevant implications as it allows to test at the same time avionics protocols as well as IoT devices. As a matter of fact, even though avionics software must comply with strict regulations and security standards as described in DO-178 (ED-12 in Europe) and DO-278, it is highly likely that using one of the previously mentioned protocols as attack vector will have the same effect on all implementations. While it is true that those systems are a crucial component of an aircraft, as they are connected to the main control systems and can take autonomous decisions, in the same way similar problems arises in ground stations and in the network of IoT sensors as those can be used as entry point to a larger network.
+
+Stratux project is particularly interesting as it uses inexpensive hardware (a RaspberryPi and a RTL-SDR dongle) to provide \textbf{ADS-B In} services.
+Moreover Stratux software is compatible with every major \acrlong{efb}s (\acrshort{efb}) and, as far as it can be understood from its community, it is largely used by pilots making it a proper avionics component at least in the General Aviation sector.
 
 Fuzzing was choosen as test method since, as far as it was known at the beginning of the research, no previous attempt of applying this test method to avionics protocols had been carried out. This research acquire even more importance if we examine the latest news about the hacking of a Boeing 757 and the Cyber Grand Challenge (CGC) 2016~\cite{CGC}. In particular, the CGC contained a specific challenge (\texttt{FSK\_Messaging\_Service})~\cite{CGC-FSK} tailored to identify techniques and systems able to discover vulnerabilities in the RF software using processed data after the RF front-ends. Aircraft and avionics radio-communication interfaces are a perfect example of that type of design.
 \textit{afl-unicron} has been demonstrated to be particularly effective on solving this specific challenge of the CGC.
 
-There is no official linking between the CGC and the Boeing hack however, the circumstances indicate that there is a search and a need for knowledge and tools that can exploit (and therefore eventually protect) RF facing software, embedded devices in general and avionics and NextGen devices in particular.
-
-\todo{motivations}
+Even though there is no official linking between the CGC and the Boeing hack the circumstances indicate that there is a search and a need for knowledge and tools that can exploit (and therefore eventually protect) RF facing software, embedded devices in general and avionics and NextGen devices in particular.
 
 \section{Hardware Setup}
 
 The hardware used during the research was the following:
 \begin{itemize}
 
-\item \textit{DVB-T (RTL-SDR) dongle:} a simple and cheap tv receiver equipped with the \emph{RTL2832U} or compatible chip it can be tuned on a very wide range of frequencies, not only on the tv ones.
+\item \textit{DVB-T (RTL-SDR) dongle:} a simple and cheap tv receiver equipped with the \emph{RTL2832U} or compatible chip can be tuned on a very wide range of frequencies, not only on the tv ones.
 
 \item \textit{RaspberryPi (RPi) 3 Model B:} used to acquire the data using RTL-SDR dongles, and also to run some tests on the precompiled binaries. The RPi was running the latest version of Raspbian, or the particular flavor/version of Linux or Raspbian bundled as part of Stratux and FlightRadar24 SD-card firmware image files.
 
@@ -27,25 +28,24 @@ The hardware used during the research was the following:
 \item \textit{Multi-core server:} with following specifications: Intel Xeon CPU E7-8837 @ 2.67GHz (64 cores, 32 cores used for a single given afl-fuzz instance), 1 TB of RAM, running Centos7.4 Linux.
 \end{itemize}
 
-\todo{why}
-
 \section{Software Setup}
 
-\todo{Explain why we used what we used.}
-
-The focus was posed on two of the most widespread and common implementations: \emph{dump1090} and \emph{dump978} obviously the first one decode \textbf{OldGen} and \textbf{1090ES} messages while the second one decode \textbf{UAT} messages. Both of them uses \emph{librtlsdr} to communicate with the rtl-sdr dongle
-
-Tested software have two main components:
+The focus was on two of the most widespread and common implementations of the protocols: \emph{dump1090} and \emph{dump978} obviously the first one decodes \textbf{OldGen} and \textbf{1090ES} messages while the second one decodes \textbf{UAT} messages.
+Those software have two main components:
 \begin{enumerate}
-  \item A \emph{demodulator} that converts the raw signal coming from the dongle into a properly encoded string. This basically means converting waves into bits.
-  \item A \emph{decoder} that decodes the messages coming from the demodulator. Basically extracting the information from the incoming packet.
+  \item A \emph{demodulator} that converts the raw signal into a proper binary string.
+  \item A \emph{decoder} that extracts the information from the packet provided by the demodulator.
 \end{enumerate}
 
-\emph{dump1090} is a big monolithic software which has undergone major reworks and edits from many different authors. For this reason it is not possible to test individually each components.
+\emph{dump1090} handles directly the communication with the RTL-SDR dongle using \emph{librtlsdr}. This library has been developed to work with the \emph{RTL2832U} Radio Frequency (RF) chip providing access to the raw signal. It is possible to define other sources for the raw data such as a file or the standard input with the option \texttt{"-{}-ifile"}. \emph{dump1090} is a big monolithic software which has undergone major reworks and edits from different authors and has many different forks. For those reasons testing each component individually is a trivial task which can be accomplished only by using \textit{afl-unicorn}.
+
+\emph{dump978} does not acquire directly the raw signal but, instead, it has to be provided on the standard input. A tool called \textit{rtl-sdr} included in \textit{librtlsdr} can be used to tune the dongle on a specific frequency and dump the raw signal. The \textit{dump978} software as in its basic version it is composed by at least 3 different tools: \textit{rtl-sdr} used to communicate with the dongle and acquire the raw data. \textit{dump978} which is the demodulator and gives encoded messages as output. \textit{uat2text} which is the decoder and converts the output of the demodulator in a readable form. In addition to these \textit{extract\_nexrad}extracts \textbf{NexRad} packets from the demodulated output and \textit{plot\_nexrad.py} creates png images from those data.
+
+While \textit{dump978} is a single software whit almost no forks \textit{dump1090} has many different versions, testing all of them is impossible therefore 3 of the most widespread where selected for fuzzing. The authors of them are \textit{Antirez, MalcommRobb} and the \textit{Stratux community}, for each author we took the very first release and the latest one.
 
 \subsection{Datasets}
 
-In order to test the above mentioned programs some data were needed.
+To test the above mentioned programs some data where needed,
 
 \subsection{Tools}
 \label{sec:tools}
@@ -63,7 +63,7 @@ follows.
 \begin{itemize}
 
   \item \textbf{converter.sh} and \textbf{runner.sh} this scripts are meant to
-  interact with the data provided by the DO-358 zip file.This archive contains
+  interact with the data provided by the DO-358 zip file. This archive contains
   different files which are designed to be used with a dedicated test tool for
   real  avionics hardware, for  this reason there are 18 subfolders (called
   groups)  and for each one of them  there are 3 files: \texttt{TestGroupXX
@@ -133,13 +133,7 @@ follows.
 
 \end{itemize}
 
-% \begin{figure}[htp]
-%   \centering
-%   \hspace*{-0.55in}
-%   \includegraphics[scale=0.55]{images/fuzzscript.png}
-%   \caption{start.sh and related scripts}
-%   \label{fig:fuzztools}
-% \end{figure}
+
 
 \section{Proceedings}
 

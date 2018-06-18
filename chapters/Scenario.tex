@@ -153,7 +153,24 @@ This protocol is backward compatible with the \textbf{OldGen} since it uses the 
 
 \textbf{\acrshort{uat}}-\acrlong{uat} is not actually Universal as it is not widespread yet like \textbf{1090ES}. This protocol is mainly deployed in North America and it is starting to be deployed also in China. It is not backward compatible with the \textbf{OldGen} and it was developed specifically to be used with \textbf{ADS-B}. It uses the 978MHz frequency and requires an entire new hardware to work.
 
-However, since it is a newly designed protocol built to be future proof it allows to carry more information compared to \textbf{1090ES}, such as weather reports, pilots reports and other messages (like \acrshort{notam}s) using  \textbf{\acrshort{fis-b}} (\acrlong{fis-b}) and \textbf{\acrshort{tis-b}} (\acrlong{tis-b}), which are ground services that broadcast to "ADS-B In" equipped aircraft information on weather and traffic detected by ground radars as well as coming from other ADS-B equipped planes. Moreover \textbf{\acrshort{fis-b}} service is also capable to deliver \textbf{NexRad} images captured from the United States Weather Surveillance Radar through \textbf{ADS-B} messages. US government is encouraging General Aviation (GA) aircrafts, not flying in Class A airspace, to use a \textbf{UAT} transponder. In this way there is less pollution of the 1090MHz frequency and they can receive more information such as weather data.
+However, since it is a newly designed protocol built to be future proof it allows to carry more information compared to \textbf{1090ES}, such as weather reports, pilots reports and other messages (like \acrshort{notam}s) using  \textbf{\acrshort{fis-b}} (\acrlong{fis-b}) and \textbf{\acrshort{tis-b}} (\acrlong{tis-b}), which are ground services that broadcast to "ADS-B In" equipped aircraft information on weather and traffic detected by ground radars as well as coming from other ADS-B equipped planes. Moreover \textbf{\acrshort{fis-b}} service is also capable to deliver real time weather images (\textbf{NexRad}) captured from the United States Weather Surveillance Radar through \textbf{ADS-B} messages. \textbf{NexRad} messages have the following format: \emph{<type> <hour>:<minute> <scale> <north> <west> <height> <width> <data>}
+
+\emph{<type>} can be Regional (value 63) if the image represents a only a specific region of the map. Conus (value 64) if the image represents the whole (USA) map.
+
+\emph{<scale>} can be 0, 1 or 2 and indicates the resolution of the image, an higher value means lower resolution.
+
+\emph{<north> <west> <height> <width>} the first two elements refer to the respective edge of the block, their value is in arcminutes. The last two elements are the height and width of the block expressed in arcminutes of latitude and longitude.
+
+The \emph{<data>} portion can be encoded in different ways:
+
+- Run Length Encoding (RLE), particularly powerful as it has an high decompression speed.
+
+- Empty Block representation, representing one or more block that are completly empty of data.
+
+- Huffman Encoding, a common compression algorithm used in jpg images. It is based on a binary tree conveniently constructed using the occurrence of each character or element~\cite{huffman}.
+
+
+US government is encouraging General Aviation (GA) aircrafts, not flying in Class A airspace, to use a \textbf{UAT} transponder. In this way there is less pollution of the 1090MHz frequency and they can receive more information such as weather data.
 
 \textbf{Multilateration} is a technology which uses different signals to accurately locate an aircraft. It was initially developed for military purposes but was then adopted to confirm the position transmitted by \textbf{ADS-B}. It employs strategically placed antennas that listen to different replies (Mode A,C,S, military IFF and ADS-B) transmitted from an aircraft. Since a single aircraft will be at a different distance from every ground station, the replies to each station will have a different time of arrival; this difference can then be used to compute the precise position of an aircraft. This is the inverse of triangulation and requires no additional hardware since the ground stations are able to acquire replies from a multitude of different protocols. This also makes \textbf{multilateration} a faster method to locate an airplane since information can be acquired at a considerable higher rate. However, it has been demonstrated by Bran Haines in~\cite{haineshackfest} that such a system is not mandatory and rarely used.
 
