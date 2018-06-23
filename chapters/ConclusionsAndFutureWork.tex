@@ -4,6 +4,16 @@
 \chapter{Conclusions and Future Work}
 \label{chap:futurework}
 
-\todo{Future work and proprietary fuzzer development}
+This is the first public research aiming towards security fuzzing of ADS-B, NextGen protocols and avionics devices.
+Some state of the art and effective methods to start fuzzing such devices and software have been used in the research and presented in this thesis. This type of security analysis is particularly trivial as it presents many caveats and difficulties associated to the availability of real hardware and software and to characteristics aspects of the RF world.
 
+As previously said the tools used in this research might not be the best to test this kind of software and protocols therefore it is necessary to deeper explore the avionics field using the new and now available RF fuzzers. Another option might be to develop a specific fuzzer or fork of \textbf{AFL} that can correctly interact with RF facing software, regarding \textit{dump1090}, although it is also interesting to explore what happens when the CRC of a message is incorrect, it might be usefull to have a tool to generate random inputs that have a valid CRC.
+
+Also, all the tools, utilities and datasets as well as intentionally vulnerable samples used during this research are released in a open-source repository.
+Hopefully this work and the released data and code will help motivate
+further research in this field.
+
+\todo{Future work and proprietary fuzzer development}
+\todo{create a tool to better interact with the modulated data}
+\todo{tool to efficiently fuzz messages (generating a valid crc) although it is also interesting to see what happens when  the crc is incorrect}
 \end{document}
