@@ -4,16 +4,18 @@
 \chapter{Conclusions and Future Work}
 \label{chap:futurework}
 
-This is the first public research aiming towards security fuzzing of ADS-B, NextGen protocols and avionics devices.
-Some state of the art and effective methods to start fuzzing such devices and software have been used in the research and presented in this thesis. This type of security analysis is particularly trivial as it presents many caveats and difficulties associated to the availability of real hardware and software and to characteristics aspects of the RF world.
+This is the first public available research aiming towards security fuzzing of \textbf{ADS-B}, \textbf{Next-Gen} protocols and avionics devices.
+Some state of the art and effective methods to start fuzzing such devices and software have been used in the research and presented in this dissertation. This type of security analysis is particularly trivial as it presents many caveats and difficulties associated to the availability of real hardware and software and to characteristic aspects of the RF world.
 
-As previously said the tools used in this research might not be the best to test this kind of software and protocols therefore it is necessary to deeper explore the avionics field using the new and now available RF fuzzers. Another option might be to develop a specific fuzzer or fork of \textbf{AFL} that can correctly interact with RF facing software, regarding \textit{dump1090}, although it is also interesting to explore what happens when the CRC of a message is incorrect, it might be usefull to have a tool to generate random inputs that have a valid CRC.
+As previously anticipated the tools used in the research might not be the best to test this kind of software and protocols, therefore it is necessary to deeper explore the avionics field using the new and now available RF fuzzers previously mentioned in Chapter \ref{chap:experimsetup}. Moreover, the same author of \textit{librtlsdr} recently released another library (\textit{fl2k}\cite{fl2k}) which leverages cheap usb3-to-VGA adapters turning them into devices capable of transmitting on Radio Frequencies. This, combined with the cheap real avionics devices found on eBay by Hugo Teso~\cite{teso}, might allow cheaper researches in this field.
 
-Also, all the tools, utilities and datasets as well as intentionally vulnerable samples used during this research are released in a open-source repository.
-Hopefully this work and the released data and code will help motivate
-further research in this field.
+ Another option might be to develop a specific fuzzer or fork of \textbf{AFL} that can correctly interact with RF facing software. In particular regarding \textit{dump1090}, although it is also interesting to explore what happens when the CRC of a message is incorrect, it might be useful to have a tool to generate random inputs that have a valid CRC.
 
-\todo{Future work and proprietary fuzzer development}
-\todo{create a tool to better interact with the modulated data}
-\todo{tool to efficiently fuzz messages (generating a valid crc) although it is also interesting to see what happens when  the crc is incorrect}
+Still linked with \textit{dump1090} one of the main problems was to interact with modulated data, as the structure of this binary does not allow to test all its specific parts individually. Moreover, in all the samples some random and unwanted noise is always present since all the raw output from the RTL-SDR dongle is saved. This can be disadvantageous especially in the fuzzing task as many bits will be mutated without any direct effect on the target. In addition to this, large files slow down the fuzzing and are more difficult to be handled by \textbf{AFL}. For these reasons it might be very useful to create a tool which lets the user open a captured file and visually see its content. The user will then select the relevant part and create a new file. In this way it can also be easier to insert some controlled intentional noise inside an input file that will then be mutated since it is still interesting to see how the demodulator behaves in presence of fuzzed noise. Such tool would be beneficial both for 1090MHz and for 978MHz and will be, basically, an advanced modulator.
+
+The revisions of the \textbf{RTCA} documents, which introduced major modifications, bring some questions on how real avionics components would behave in presence of an old software and a new packet and vice versa. Moreover it would be interesting to understand how the update is released and what are the different steps of the update process as it can introduce further problems such as orphan lines of code or phantom functions which might be exploitable. This certainly needs further investigation.
+
+Also, all the tools, utilities and datasets as well as intentionally vulnerable samples used during this research are released in a opensource repository.
+Hopefully this will help motivate further research in this field.
+
 \end{document}
