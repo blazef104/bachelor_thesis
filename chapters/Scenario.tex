@@ -23,10 +23,7 @@ fields~\cite{vvff}. Nowadays Military operations are more and more
 drone-centered, therefore armed forces, from infantry to flying squadrons, are
 equipped with different kinds of \textbf{\acrshort{uav}}. All this sudden
 progress has led to overcrowded skies in which the innovation in the
-\acrlong{atm} (\textbf{\acrshort{atm}}) field must be continuously updated. New
-systems have been built with a strong push of implementing \acrshort{iot}
-paradigm in respect with the \textbf{\acrshort{atm}}, \textbf{\acrshort{uav}}
-and avionics systems.
+\acrlong{atm} (\textbf{\acrshort{atm}}) field must be continuously updated. Moreover new systems have been built with a strong push of implementing \acrshort{iot} paradigm in respect with the \textbf{\acrshort{atm}}, \textbf{\acrshort{uav}} and avionics systems.
 
 Airplanes can no longer be seen as the main users of the sky. A wider spectrum
 of flying objects should be considered given the different nature of their
@@ -68,7 +65,7 @@ which are \acrlong{rtca} (\textbf{\acrshort{rtca}}) in the United States,
 (\textbf{\acrshort{icao}}) which is a UN organization. The above mentioned
 organizations are non governative therefore they produce standards, guidelines
 or rules that will have to be adopted by the \acrlong{faa}
-(\textbf{\acrshort{faa}}) in the united states, by the
+(\textbf{\acrshort{faa}}) in the United States, by the
 \textbf{EUROCONTROL}\footnote{The organization that provides unique centralized
 platform for civil and military aviation coordination in Europe.} and the single
 national aviation authority of the various European countries
@@ -82,7 +79,7 @@ unclear situation about standards and regulations. In particular
 \textbf{NextGen} has shown problems in the definition of a globally accepted
 family of protocols as it can be seen in the relevant section.
 
-Aircrafts can be tracked either by a \textbf{cooperative} way  and a \textbf{non-cooperative} one:
+Aircrafts can be tracked either in a \textbf{cooperative} way  and a \textbf{non-cooperative} one:
 
 \begin{itemize}
 
@@ -109,7 +106,7 @@ which is still in deployment.
   \label{fig:allgen}
 \end{figure}
 
-Having a continuous data flow between the aircraft and the ground is beneficial not only for the \acrshort{atm}/\acrshort{atc} but also for the airline. As a matter of fact:
+Having a continuous data flow between the aircraft and the ground is beneficial not only for the \textbf{\acrshort{atm}/\acrshort{atc}} but also for the airline. As a matter of fact:
 \begin{itemize}
   \item Flight controllers can obtain much more information about a single aircraft, his intentions and the status of the flight. Moreover satellite based ADS-B allow to trace planes in areas where no radar coverage is available.
   \item The airline can keep track of its fleet in real time thus allowing a better planning of the turnover and, if needed, quick deployment of a substitute airplane.
@@ -124,7 +121,7 @@ enhance safety Project Loon balloons are equipped with both OldGen and NextGen
 hardware~\cite{loonadsb} while some DJI drones are compatible with NextGen
 protocols~\cite{dji}.
 
-In addition to their use in aircrafts both OldGen and NextGen protocols are now
+In addition to their use in aircrafts both \textbf{OldGen} and \textbf{NextGen} protocols are now
 integrated in a big network of IoT sensors. It is currently estimated there are
 no less than $\countadsbrecvtotal$ air-traffic sensors/receivers integrated into
 crowd sourced projects, in particular about $\countadsbrecvfradar$ in
@@ -147,7 +144,7 @@ The first two protocols are \textbf{Mode A} and \textbf{Mode C}.
 
 \textbf{Mode C} is an extension of the previous protocol which, in addition to the transponder code, sends information about the altitude and the pressure. This kind of transponders are often referred to as \textbf{Mode A/C}.
 
-\textbf{Mode S} is the newest protocol of this family and it is an hybrid between the two generations. It was born as part of the OldGen family but at the same time it is also part of the NextGen as it can be seen in Figure \ref{fig:allgen}. As clearly explained further in the text, \textbf{Mode S} in the years has undergone various enhancements and refinements in order to be used as an easy-to-deploy and affordable NextGen protocol. \textbf{Mode S} ground stations and transponders support both all call interrogations and selective interrogations, in particular each aircraft is identified by a unique 24-bit address which is part of the aircraft registration documents and should never be changed. The address is transmitted with every \textbf{Mode S} reply, which allows a \acrshort{ssr} station to perform an all call interrogation in order to acquire the address of each aircraft which can then be used to selectively interrogate them. Each ground station is identified by a 4-bit\footnote{For aircraft complying with ICAO Annex 10, Volume IV Amendment 73 a 6-bits code can be used.} \acrlong{ic} (\acrshort{ic}). In this way single aircraft interrogation as well as lock-out of the aircraft can be performed in order to avoid multiple pickups of the same aircraft by different \acrshort{ssr} stations. \textbf{Mode S} messages can be of 56 or 112 bits and they are structured as in Figure \ref{fig:modes}.
+\textbf{Mode S} is the newest protocol of this family and it is an hybrid between the two generations. It was born as part of the \textbf{OldGen} family but at the same time it is also part of the \textbf{NextGen} as it can be seen in Figure \ref{fig:allgen}. As clearly explained further in the text, \textbf{Mode S} in the years has undergone various enhancements and refinements in order to be used as an easy-to-deploy and affordable \textbf{NextGen} protocol. \textbf{Mode S} ground stations and transponders support both all call interrogations and selective interrogations, in particular each aircraft is identified by a unique 24-bit address which is part of the aircraft registration documents and should never be changed. The address is transmitted with every \textbf{Mode S} reply, which allows a \acrshort{ssr} station to perform an all call interrogation in order to acquire the address of each aircraft which can then be used to selectively interrogate them. Each ground station is identified by a 4-bit\footnote{For aircraft complying with ICAO Annex 10, Volume IV Amendment 73 a 6-bits code can be used.} \acrlong{ic} (\acrshort{ic}). In this way single aircraft interrogation as well as lock-out of the aircraft can be performed in order to avoid multiple pickups of the same aircraft by different \acrshort{ssr} stations. \textbf{Mode S} messages can be of 56 or 112 bits and they are structured as in Figure \ref{fig:modes}.
 
 \begin{figure}[htp]
   \centering
@@ -166,7 +163,7 @@ In \textbf{Mode S} messages the first 5 bits identify the type of message called
 
 \textbf{Mode S EHS} is also a minimum requirement for some categories of aircraft flying in European Mode S airspace.
 
-All the above protocols are at the base of the \acrlong{acas} (\textbf{\acrshort{acas}}). This system requires all flying objects to be equipped with \textbf{Mode A/C}, \textbf{Mode C} or \textbf{Mode S} transponders. In this way it can keep track of the surrounding airplanes and, in case of colliding traffic, propose vertical \acrlong{ra} (\textbf{\acrshort{ra}}). NextGen systems have enhanced \textbf{RA} capabilities. It is clear that this is a critical part of the system and, if compromised, can lead to dramatic results such as mid air collision.
+All the above protocols are at the base of the \acrlong{acas} (\textbf{\acrshort{acas}}). This system requires all flying objects to be equipped with \textbf{Mode A/C} or \textbf{Mode S} transponders. In this way it can keep track of the surrounding airplanes and, in case of colliding traffic, propose vertical \acrlong{ra} (\textbf{\acrshort{ra}}). \textbf{NextGen} systems have enhanced \textbf{RA} capabilities. It is clear that this is a critical part of the system and, if compromised, can lead to dramatic results such as mid air collision.
 
 \textbf{Mode A/C} and \textbf{S} are the current standards and they are widely used, notably according to the Italian regulation all aircrafts must be equipped with at least a \textbf{Mode A/C} transponder and in some particular cases with a \textbf{Mode S} transponder as it can be seen in GEN 1.5-3.1 of AIP Italia~\cite{itareg}.
 
@@ -191,7 +188,7 @@ messages can be of 3 different types:
 Messages from the aircraft can be pre-configured so that they are automatically delivered to the appropriate recipient based on the message type; in the same way ground-originated messages can be configured to reach the correct aircraft. This messages cover a fundamental part of the bidirectional aircraft-ground data link and their content can be of utmost importance.
 For example the Air France flight 447 which disappeared from the radars on 1 June 2009 sent in his final moments 24 \textbf{\acrshort{acars}} messages, some of them indicating anomalies and errors. In the first moments those messages were the only clue to understand what had happened and to locate the aircraft \cite{af447}.
 
-Current minimum system requirements of an airliner can be seen in Figure \ref{fig:modern}. However by 2020 all the \textbf{Mode S} transponders must be upgraded to support \textbf{1090ES} NextGen protocol.
+Current minimum system requirements of an airliner can be seen in Figure \ref{fig:modern}. However by 2020 all the \textbf{Mode S} transponders must be upgraded to support \textbf{1090ES} \textbf{NextGen} protocol.
 
 \begin{figure}[htp]
   \centering
@@ -200,7 +197,7 @@ Current minimum system requirements of an airliner can be seen in Figure \ref{fi
   \label{fig:modern}
 \end{figure}
 
-Although the OldGen provides some benefits in term of position accuracy and details for the controllers, there are still some problems:
+Although the \textbf{OldGen} provides some benefits in term of position accuracy and details for the controllers, there are still some problems:
 
 - The information provided is still low and, except for the enhancements introduced with \textbf{Mode S}, it only provides a small aid during the flight.
 
@@ -208,16 +205,17 @@ Although the OldGen provides some benefits in term of position accuracy and deta
 
 - There is no effective way to confirm the identity of an aircraft and the validity of the data that it is sending, thus allowing for no effort Man in the Middle and other attacks.
 
-Different approaches to secure such protocols (both Old an NextGen) have been proposed~\cite{nextgenenc}. Unfortunately, none of them will be adopted in the imminent transition to the NextGen but hopefully some may be used in the near future as there are studies and official documents about that~\cite{adsbimp}.
+Different approaches to secure such protocols (both \textbf{Old} an \textbf{NextGen}) have been proposed~\cite{nextgenenc}. Unfortunately, none of them will be adopted in the imminent transition to the \textbf{NextGen} but hopefully some may be used in the near future as there are studies and official documents about that~\cite{adsbimp}.
 
 \bigskip
 
 \section{NextGen and SESAR}
 
-Both \textbf{NextGen} and \textbf{\acrshort{sesar}} (\acrlong{sesar}) are efforts to modernize the air transportation system respectively from the United States government and from the European Union along with other private parties. Both programs aim to achieve a higher degree of safety enhancing communications, navigation, surveillance technologies thus enabling all the users of the sky, even the future ones, to virtually see each other. The introduction of those new standards will also bring a reduction of costs through better \acrshort{atm} and enabling low visibility operations. The efforts are coordinated in order to assure a globally accepted common standard. For this reason from now on I will make no distinction and refer to both protocols as \textbf{NextGen}. However, many different protocols go under the \textbf{NextGen} family and some of them are not shared between Europe and America even if there are plans to do that.
+Both \textbf{NextGen} and \textbf{\acrshort{sesar}} (\acrlong{sesar}) are efforts to modernize the air transportation system respectively from the United States government and from the European Union along with other private parties. Both programs aim to achieve a higher degree of safety enhancing communications, navigation, surveillance technologies thus enabling all the users of the sky, even the future ones, to virtually see each other. The introduction of those new standards will also bring a reduction of costs through better \textbf{\acrshort{atm}} and enabling low visibility operations. The efforts are coordinated in order to assure a globally accepted common standard. For this reason from now on I will make no distinction and refer to both protocols as \textbf{NextGen}. However, many different protocols go under the \textbf{NextGen} family and some of them are not shared between Europe and America even if there are plans to do that.
 
 The main component of this system is \acrlong{ads-b} (\textbf{\acrshort{ads-b}}).
-\textit{"The American Federal Aviation Administration (FAA) as well as its European counterpart EUROCONTROL named ADS-B as the satellite-based successor of radar."}\cite{stroh14}
+\textit{"The American Federal Aviation Administration (FAA) as well as its European counterpart EUROCONTROL named ADS-B as the satellite-based successor of radar."}\cite{stroh14}.
+
 \textbf{\acrshort{ads-b}} is an automatic system which broadcasts aircraft sensors information to the outside world. It is divided in "ADS -B Out" which requires just a transponder able to properly encode messages and "ADS -B In" which requires a receiver, a computer and an interface to display the data.
 \textbf{\acrshort{ads-b}} messages are also picked up by ground stations which feed the data to a central system where they are used, in combination with other data (e.g radars), to create a Traffic Situation Picture.
 
@@ -227,12 +225,17 @@ Two main protocols were proposed to deliver \textbf{\acrshort{ads-b}} messages:
   \item \textbf{\acrshort{uat}} (\acrlong{uat})
 \end{itemize}
 
-\textbf{1090ES} it is the current global standard for \textbf{\acrshort{ads-b}} in commercial aviation. In Europe \textbf{1090ES} is required for \acrshort{ifr} aircrafts with a \acrshort{mtow} exceeding 12,566 pounds or maximum cruise airspeed faster than 250 KTAS. All aircrafts must comply with this regulation by 2020. \cite{eu1090}
+\textbf{1090ES} it is the current global standard for \textbf{\acrshort{ads-b}} in commercial aviation. In Europe \textbf{1090ES} is required for \acrshort{ifr} aircrafts with a \acrshort{mtow} exceeding 12,566 pounds or maximum cruise airspeed faster than 250 KTAS. All aircrafts must comply with this regulation by 2020~\cite{eu1090}.
 
-In USA \textbf{1090ES} will be mandatory for all aircrafts after June 2020 and is the only technology that should be used when flying above 18,000 feet.
-\cite{title14}. An overview of the USA supported technologies in the various airspace can be seen in Figure \ref{fig:uatvs1090}
+In USA \textbf{1090ES} will be mandatory for all aircrafts after June 2020 and is the only technology that should be used when flying above 18,000 feet~\cite{title14}. An overview of the USA supported technologies in the various airspace can be seen in Figure \ref{fig:uatvs1090}.
 
-This protocol is backward compatible with the \textbf{OldGen} since it uses the same frequencies and, in particular, a transponder supporting \textbf{Mode S} messages can be easily updated to support \textbf{\acrshort{ads-b}}. Therefore \textbf{\acrshort{ads-b}} information is simply carried inside a 112 bit \textbf{Mode S} message as it can be seen in Figure \ref{fig:1090es}. The message structure is as follows: The first 8 bits are used to identify the message and in particular the first 5 bits identify the type of message (10001 and 10010 for an \textbf{ADS-B} message) while the next 3 bits represent the capabilities which are different for every message type. The next 24 bits are the ICAO address of the aircraft. Then there are 56 bits containing data and the last 24 bits of \acrshort{crc} code. These last bits are particularly important as they allow to correct several errors in one message. All these characteristics are in common with the \textbf{Mode S} messages so \textbf{ADS-B} messages encode their type and information in the 56 bits reserved to data. Data segments contains the first 5 bits indicating a type code for the \textbf{ADS-B} message and then other bits encode specific information depending on each message~\cite{modesbook}.
+This protocol is backward compatible with the \textbf{OldGen} since it uses the same frequencies and, in particular, a transponder supporting \textbf{Mode S} messages can be easily updated to support \textbf{\acrshort{ads-b}}. Therefore \textbf{\acrshort{ads-b}} information is simply carried inside a 112 bit \textbf{Mode S} message as it can be seen in Figure \ref{fig:1090es}. The message structure is as follows:
+
+- The first 8 bits are used to identify the message and in particular the first 5 bits identify the type of message (10001 and 10010 for an \textbf{ADS-B} message) while the next 3 bits represent the capabilities which are different for every message type.
+
+- The next 24 bits are the ICAO address of the aircraft. Then there are 56 bits containing data and the last 24 bits of \acrshort{crc} code. These last bits are particularly important as they allow to correct several errors in one message.
+
+All these characteristics are in common with the \textbf{Mode S} messages so \textbf{ADS-B} messages encode their type and information in the 56 bits reserved to data. Data segments contains the first 5 bits indicating a type code for the \textbf{ADS-B} message and then other bits encode specific information depending on each message~\cite{modesbook}.
 
 
 \begin{figure}[htp]
@@ -274,16 +277,18 @@ Moreover, since it is a newly designed protocol built to be future proof it allo
 
 The \emph{<data>} portion can be encoded in different ways:
 
-- Run Length Encoding (RLE), particularly powerful as it has a high decompression speed.
+\begin{itemize}
+  \item Run Length Encoding (\textbf{RLE}), particularly powerful as it has a high decompression speed.
 
-- Empty Block representation, representing one or more blocks that are completely empty of data.
+  \item Empty Block representation, representing one or more blocks that are completely empty of data.
 
-- Huffman Encoding, a common compression algorithm used in jpg images. It is based on a binary tree conveniently constructed using the occurrence of each character or element~\cite{huffman}.
+  \item Huffman Encoding, a common compression algorithm used in jpg images. It is based on a binary tree conveniently constructed using the occurrence of each character or element~\cite{huffman}.
 
+\end{itemize}
 
 US government is encouraging General Aviation (GA) aircrafts, not flying in Class A airspace, to use a \textbf{UAT} transponder. In this way there is less pollution of the 1090MHz frequency and they can receive more information such as weather data.
 
-\textbf{Multilateration} is a technology which uses different signals to accurately locate an aircraft. It was initially developed for military purposes but was then adopted in the civilian world and used to confirm the position transmitted by \textbf{ADS-B}. It employs strategically placed antennas that listen to different replies (Mode A,C,S, military IFF and ADS-B) transmitted from an aircraft. Since a single aircraft will be at a different distance from every ground station, the replies to each station will have a different time of arrival; this difference can then be used to compute the precise position of an aircraft. A graphical example of how the multilateration works can be seen in Figure \ref{fig:mlat}. This is the inverse of triangulation and requires no additional hardware since the ground stations are able to acquire replies from a multitude of different protocols. Which makes \textbf{multilateration} a faster method to locate an airplane since information can be acquired at a considerable higher rate. However, it has been empirically demonstrated by Bran Haines in~\cite{haineshackfest} that such a system is not mandatory and rarely used.
+\textbf{Multilateration} is a technology that uses different signals to accurately locate an aircraft. It was initially developed for military purposes but was then adopted in the civilian world and used to confirm the position transmitted by \textbf{ADS-B}. It employs strategically placed antennas that listen to different replies (\textbf{Mode A},\textbf{C},\textbf{S}, military \textbf{IFF} and \textbf{ADS-B}) transmitted from an aircraft. Since a single aircraft will be at a different distance from every ground station, the replies to each station will have a different time of arrival; this difference can then be used to compute the precise position of an aircraft. A graphical example of how the multilateration works can be seen in Figure \ref{fig:mlat}. This is the inverse of triangulation and requires no additional hardware since the ground stations are able to acquire replies from a multitude of different protocols. Which makes \textbf{multilateration} a faster method to locate an airplane since information can be acquired at a considerable higher rate. However, it has been empirically demonstrated by Bran Haines in~\cite{haineshackfest} that such a system is not mandatory and rarely used.
 
 \begin{figure}[htp]
   \centering
@@ -293,15 +298,15 @@ US government is encouraging General Aviation (GA) aircrafts, not flying in Clas
 \end{figure}
 
 \textbf{NextGen} protocols will also replace a big part of the voice communications not only between pilots and air traffic control but also between air traffic controllers themselves using the \textbf{\acrshort{uat}} data link and the previously mentioned \textbf{\acrshort{acars}} messages.
-In particular \textbf{\acrshort{ads-c}} (\acrlong{ads-c}) automatically aggregate data such as aircraft position, altitude, speed, intent and meteorological data from on-board sensors. The generated report can then be sent to an ATS (\acrlong{ats}) unit or \acrshort{aoc} (\acrlong{aoc}) facility ground system for surveillance and route conformance monitoring \cite{goldman}. These ground stations must authenticate themselves on the aircraft system to require a contract.
+In particular \textbf{\acrshort{ads-c}} (\acrlong{ads-c}) automatically aggregate data such as aircraft position, altitude, speed, intent and meteorological data from on-board sensors. The generated report can then be sent to an \textbf{\acrshort{ats}} (\acrlong{ats}) unit or \textbf{\acrshort{aoc}} (\acrlong{aoc}) facility ground system for surveillance and route conformance monitoring \cite{goldman}. These ground stations must authenticate themselves on the aircraft system to require a contract.
 
 Contracts can be of 4 types:
 
 \begin{itemize}
-  \item Periodic: the \acrshort{ats} specify the time interval at which the aircraft sends the report.
+  \item Periodic: the \textbf{\acrshort{ats}} specify the time interval at which the aircraft sends the report.
   \item Demand: a single report requested from the ground station. This request does not affect any other contracts that might be present.
-  \item Emergency: these reports are tagged as "emergency" reports and will be highlighted to the \acrshort{atc}. Emergency reports can be generated manually by the crew or as a consequence of triggering another type of emergency system.
-  \item Event: the \acrshort{ats} unit can specify the event (limited to 1 per aircraft) at which the report will be sent. The contract can contain multiple event types (e.g lateral deviation, vertical rate change ecc).
+  \item Emergency: these reports are tagged as "emergency" reports and will be highlighted to the \textbf{\acrshort{atc}}. Emergency reports can be generated manually by the crew or as a consequence of triggering another type of emergency system.
+  \item Event: the \textbf{\acrshort{ats}} unit can specify the event (limited to 1 per aircraft) at which the report will be sent. The contract can contain multiple event types (e.g lateral deviation, vertical rate change ecc).
 \end{itemize}
 
 Security researchers in this field are focusing on \textbf{ADS-B} and various researches \cite{costin2012ghost,renderman} have already demonstrated the insecurity of such protocols in the \textbf{\acrshort{atc}/\acrshort{atm}} world. Few researches have been done on the aircraft side and it is now public and clear that this is a feasible entry point to an aircraft system~\cite{news-boeinghack-cso}.

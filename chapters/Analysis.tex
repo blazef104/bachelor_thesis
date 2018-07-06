@@ -35,7 +35,7 @@ method.
 Even though there is no official linking between the CGC and the Boeing hack the
 circumstances indicate that there is a search and a need for knowledge and tools
 that can exploit (and therefore eventually protect) RF facing software, embedded
-devices in general and avionics and NextGen devices in particular. Researches in
+devices in general and avionics and \textbf{NextGen} devices in particular. Researches in
 this field are moving fast and some tools, such as beSTORM~\cite{bestorm} and
 TumbleRF~\cite{tumblerf} that are now public, allow for direct RF fuzzing.
 
@@ -44,9 +44,9 @@ TumbleRF~\cite{tumblerf} that are now public, allow for direct RF fuzzing.
 The hardware used during the research was the following:
 \begin{itemize}
 
-\item \textit{DVB-T (RTL-SDR) dongle:} a simple and cheap TV receiver equipped with the \emph{RTL2832U} or compatible chip can be tuned on a very wide range of frequencies, not only on the TVs.
+\item \textit{DVB-T (RTL-SDR) dongle:} a simple and cheap TV receiver equipped with the \emph{RTL2832U} or compatible chip that can be easily tuned on a very wide range of frequencies, not only on the TVs, using \emph{librtlsdr}.
 
-\item \textit{RaspberryPi (RPi) 3 Model B:} was used to acquire the data using RTL-SDR dongles, and also to run some tests on the precompiled binaries. The RaspberryPi was running the latest version of Raspbian, or the particular flavor/version of Linux or Raspbian bundled as part of Stratux and FlightRadar24 SD-card firmware image files.
+\item \textit{RaspberryPi (RPi) 3 Model B:} was used to acquire the data using the RTL-SDR dongle, and also to run some tests on the precompiled binaries. The RaspberryPi was running the latest version of Raspbian, or the particular flavor/version of Linux or Raspbian bundled as part of Stratux and FlightRadar24 SD-card firmware image files.
 
 \item \textit{Standard laptop:} was used for dry-run testing, for initial code testing and for initial fuzzing experiments monitoring. The laptop has the following specifications: Intel Core i7 5500 (4 cores), 12 GB of RAM. Since the fuzzing is time and resource consuming, when the running experiments were considered promising or really important, they were moved to run on a multi-core server.
 
@@ -113,9 +113,9 @@ the binaries for testing can be seen in Figure \ref{fig:binline}.
 Every considered software requires its specific format of data, moreover, the
 input given to \textbf{AFL} must be carefully chosen as using a too narrow input
 (i.e. that triggers only a specific function) can lead to a waste of time before
-the fuzzers actually is able to syntetize a meaningful input. Some suggestions
-from the README of \textbf{AFL} and the ThalesIgnite
-afl-training\footnote{\url{https://github.com/ThalesIgnite/afl-training}} are:
+the fuzzer will actually be able to syntetize a meaningful input and, as a consequence, the vulnerable point might never be hit.
+
+Some suggestions from the README of \textbf{AFL} and the ThalesIgnite afl-training\footnote{\url{https://github.com/ThalesIgnite/afl-training}} are:
 
 - Find some real inputs that exercise as much of the target as possible.
 
@@ -130,7 +130,7 @@ university laboratory and resulted in two files:  \emph{1090\_small.bin} which
 contains a valid message, some noise and some invalid messages and
 \emph{1090\_smaller.bin} which only contains one valid message. In addition to
 this, \emph{modes1.bin} is a sample file contained in the \emph{dump1090}
-repository. Despite containing some sample messages, however, it was never used
+repository. However, despite containing some sample messages, it was never used
 during the research. Capturing some 978MHz data is a hard task in Europe since,
 as already said, this frequency and the \textbf{UAT} protocol is deployed mainly
 in North America and China. Moreover no raw samples come with the
@@ -150,14 +150,14 @@ keep at least one message. Creating files such as \textit{1090\_small.bin} and
 \textit{978\_random.bin} was a trivial process since there is no easy way to
 access and manage the raw data contained in the bigger files particularly
 regarding the content and his meaning, however the creation of a tool to
-interact and manages raw samples is left as future work.
+interact and manage raw samples is left as future work.
 
 To test \textit{uat2text} and \textit{extract\_nexrad} tools, some files were
 created containing specific demodulated messages from \textit{978\_big.bin}. In
 addition to this, two files (\textit{gdl90data} and \textit{gdl90data1})
 containing \textbf{FIS-B/NexRad} samples from the documentation of the Garmin
 first certified \textbf{ADS-B} datalink transceiver (GDL90~\cite{gdl90}) were
-used in the tests. In particular for \textbf{FIS-B} services \acrshort{rtca}
+used in the tests. In particular, for \textbf{FIS-B} services, \acrshort{rtca}
 provides a document (DO-358: \emph{``Minimum Operational Performance Standards
 (MOPS) for Flight Information Services Broadcast (FIS-B) with Universal Access
 Transceiver (UAT)''}) and the respective supplement containing many different
@@ -203,8 +203,8 @@ The tools are divided into two categories: \textbf{Data Tools} used to manage, m
   stopping after each file and asking if the user wants to continue, or simply
   running all files at once.
 
-  \item \textbf{message\_generator.py} is a simple script that after receiving
-  the first part of a demodulated Mode-S message can calculate a correct CRC.
+  \item \textbf{message\_generator.py} is a simple script that, after receiving
+  the first part of a demodulated Mode-S message, can calculate a correct CRC.
   This can be done virtually for every random string with a correct length but
   the script has not been widely used.
 
@@ -340,15 +340,18 @@ skip such functions.
 \end{figure}
 
 This analysis was carried out on the ARM precompiled binary contained in the
-first release of the Stratux Linux image (stratux-v.0.1-08072015). For future
-templates the above mentioned \textit{unicorn\_template\_generator.py} was used.
+first release of the Stratux Linux image (stratux-v.0.1-08072015).
 To confirm that \textit{afl-unicorn} was working as expected a vulnerable
-version of \textit{dump1090}, having an overflow inside the \textit{detectModeS}
-function, was compiled on the RaspberryPi and the context dumped with the
-mentioned script. Then the fuzzer was let run on the resulting template for an entire day on the standard laptop, unluckily no crashes where produced both for the vulnerable and for the stock versions. This might be due to the low hardware
-resources of the regular laptop and to the low testing time since
-\textit{afl-unicorn} has a much slower testing speed due to the many steps
-required by the Unicorn Engine to start the emulation and to the low execution speed of a program inside the emulator. For unknown reasons it was not possible to setup a working instance of the Unicorn Engine and therefore of \textit{afl-unicorn} on the multicore server since the execution of the emulation engine on an x86 and an x86\_64 machine gives completely different results than the runs on the server.
+version of \textit{dump1090}, with an overflow inside the \textit{detectModeS}
+function, was compiled on the RaspberryPi, the context dumped with the
+proper scripts and the template created with \textit{unicorn\_template\_generator.py}. The fuzzer was then run on the standard laptop using the generated template for an entire day, unluckily no crashes where produced both for the vulnerable and for the stock versions. This might be due to the low hardware resources of the regular laptop and to the low testing time since \textit{afl-unicorn} has a much slower testing speed due to the many steps required by the Unicorn Engine to start the emulation and to the low execution speed of a program inside the emulator. For unknown reasons it was not possible to setup a working instance of the Unicorn Engine and therefore of \textit{afl-unicorn} on the multicore server since the execution of the emulation engine on an x86 and an x86\_64 machine gives completely different results than the runs on the server. The results of the run on the regular laptop can be seen in Figure \ref{fig:unistats}.
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[scale=0.85]{images/aflunicornstats.png}
+  \caption{afl-unicorn statistics on the regular Laptop}
+  \label{fig:unistats}
+\end{figure}
 
 Moving on from \textit{dump1090} the research focused on \textit{dump978}, an
 experimental run of \textbf{AFL} was done using \textit{978\_random.bin} and the
@@ -409,7 +412,7 @@ cumulative execution produced no appreciable crash.
 
 A last test, using a completely different binary found in
 \textit{afl-demo}\footnote{\url{https://gitlab.com/wolframroesler/afl-demo}}
-repository, was carried out on all the flavours of \textbf{AFL} used during the
+repository, was carried out on all the flavors of \textbf{AFL} used during the
 research. This binary is built specifically to test the abilities of the fuzzer
 and is a simple and buggy URI decoder. It was run on just a single instance of
 \textbf{AFL}, \textbf{AFL} QEMU mode and \textit{afl-unicorn}. The results can
@@ -424,7 +427,7 @@ unique crashes. The last three images are about \textit{afl-unicorn}, as it can
 be seen from the last one it is not able to find any crashes and, most
 importantly, no new paths are triggered. This might be due to many different
 factors that still need further and deeper investigation. Although the two
-previous images show that the real registers, after the exectuion of the tested
+previous images show that the real registers, after the execution of the tested
 function (\textit{uridecode}), from inside GDB and the ones resulting from the
 execution of Unicorn template have the same value except for some of them that
 are related to the address of where the input is loaded.
